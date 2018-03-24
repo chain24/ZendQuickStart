@@ -24,6 +24,7 @@ Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
 $frontController =Zend_Controller_Front::getInstance();
 $frontController->throwExceptions(true);
 $frontController->setControllerDirectory('../application/controllers');
+Zend_Layout::startMvc(array('layoutPath'=>'../application/layouts'));
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,

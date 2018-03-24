@@ -1,4 +1,4 @@
-<style>
+<!--<style>
     a:link,
     a:visited
     {
@@ -40,4 +40,12 @@
             <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
         </p>
     </div>
-</div>
+</div>-->
+<html>
+    <head>
+        <title><? echo $this->escape($this->$title)?></title>
+    </head>
+    <body>
+        <h1><? echo $this->escape($this->$title)?></h1>
+    </body>
+</html>
