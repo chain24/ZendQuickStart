@@ -30,5 +30,7 @@ ZendQuickStart/public目录下新建**.htaccess** 内容为：
 [http://localhost/ZendQuickStart/public](http://localhost/ZendQuickStart/public)
 
 ##使用命令行创建项目
+
 	1.cd /d/xampp/htdocs/ZendQuickStart/bin
+	
 	2.zf.sh create project /d/xampp/htdocs/chainw/ZendQuickStart/,生成application目录。
