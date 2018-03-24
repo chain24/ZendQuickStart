@@ -33,6 +33,8 @@ $config = new Zend_Config_Ini('../application/config.ini', 'general');
 $registry =Zend_Registry::getInstance();
 
 $registry->set('config',$config);
+$db = Zend_Db::factory($config->db);
+Zend_Db_Table::setDefaultAdapter($db);
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
