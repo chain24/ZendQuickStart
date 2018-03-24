@@ -26,6 +26,13 @@ $frontController->throwExceptions(true);
 $frontController->setControllerDirectory('../application/controllers');
 Zend_Layout::startMvc(array('layoutPath'=>'../application/layouts'));
 // Create application, bootstrap, and run
+//loadconfiguration
+
+$config = new Zend_Config_Ini('../application/config.ini', 'general');
+
+$registry =Zend_Registry::getInstance();
+
+$registry->set('config',$config);
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
