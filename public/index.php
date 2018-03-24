@@ -25,16 +25,17 @@ $frontController =Zend_Controller_Front::getInstance();
 $frontController->throwExceptions(true);
 $frontController->setControllerDirectory('../application/controllers');
 Zend_Layout::startMvc(array('layoutPath'=>'../application/layouts'));
-// Create application, bootstrap, and run
-//loadconfiguration
+set_include_path('.'.PATH_SEPARATOR.'../library'.PATH_SEPARATOR.'../application/models'.PATH_SEPARATOR.get_include_path());
 
-$config = new Zend_Config_Ini('../application/config.ini', 'general');
+// Create application, bootstrap, and run
+$config = new Zend_Config_Ini('../application/configs/application.ini', 'general');
 
 $registry =Zend_Registry::getInstance();
 
 $registry->set('config',$config);
 $db = Zend_Db::factory($config->db);
 Zend_Db_Table::setDefaultAdapter($db);
+
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'

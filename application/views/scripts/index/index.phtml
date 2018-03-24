@@ -41,11 +41,24 @@
         </p>
     </div>
 </div>-->
-<html>
-    <head>
-        <title><? echo $this->escape($this->$title)?></title>
-    </head>
-    <body>
-        <h1><? echo $this->escape($this->$title)?></h1>
+
+    <p><a href="<?php echo $this->url(array('controller'=>'index','action'=>'add')) ?>" Add New Album</a> </p>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Operation</th>
+        </tr>
+        <?php foreach($this->albums as $album):?>
+        <tr>
+            <td><? echo $this->escape($album->title);?></td>
+            <td><? echo $this->escape($album->artist);?></td>
+            <td>
+                <a href="<?php echo $this->url(array('controller'=>'index','action'=>'edit', 'id'=>$album->id));?>">Edit</a>
+                <a href="<?php echo $this->url(array('controller'=>'index','action'=>'delete', 'id'=>$album->id));?>">Delete</a>
+            </td>
+        </tr>
+        <?php endforeach ?>
+    </table>
     </body>
 </html>
