@@ -27,7 +27,7 @@ ZendQuickStart/public目录下新建**.htaccess** 内容为：
 	RewriteRule .*index.php
 ####浏览器访问url####
 
-[http://localhost/ZendQuickStart/public](http://localhost/ZendQuickStart/public/index.php/index/index)
+[http://localhost/ZendQuickStart/public/index.php/index/index](http://localhost/ZendQuickStart/public/index.php/index/index)
 
 ##使用命令行创建项目
 
