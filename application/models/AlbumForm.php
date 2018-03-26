@@ -16,14 +16,14 @@ class AlbumForm extends Zend_Form
         $artist = new Zend_Form_Element_Text('artist');
         $artist->setLabel('Artist')
             ->setRequired(true)
-            ->addFilter('Strip Tags')
-            ->addFilter('String Trim')
+            ->addFilter('StripTags')
+            ->addFilter('StringTrim')
             ->addValidator('NotEmpty');
         $title = new Zend_Form_Element_Text('title');
         $title->setLabel('title')
             ->setRequired(true)
-            ->addFilter('Strip Tags')
-            ->addFilter('String Trim')
+            ->addFilter('StripTags')
+            ->addFilter('StringTrim')
             ->addValidator('NotEmpty');
         $submit = New Zend_Form_Element_Submit('submit');
         $submit->setAttrib('id','submitbutton');
