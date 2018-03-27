@@ -18,6 +18,11 @@ class IndexController extends Zend_Controller_Action
     public function register()
     {
         $this->view->title = '注册页面';
+        $form = new UserForm();
+        $form->submit->setLabel('注册');
+        $this->view->$form = $form;
+
+
     }
 
     public function addAction()
