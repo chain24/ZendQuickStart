@@ -6,7 +6,7 @@
  * Time: 10:27
  */
 
-class UserForm
+class UserRegisterForm extends Zend_Form
 {
-
+    
 }
