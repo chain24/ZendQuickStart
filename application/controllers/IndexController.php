@@ -20,7 +20,7 @@ class IndexController extends Zend_Controller_Action
         $this->view->title = '注册页面';
         $form = new UserForm();
         $form->submit->setLabel('注册');
-        $this->view->$form = $form;
+        $this->view->form = $form;
 
 
     }
