@@ -17,10 +17,40 @@ class IndexController extends Zend_Controller_Action
     }
     public function registerAction()
     {
-        $this->view->title = '注册页面';
         $form = new UserForm();
-        $form->submit->setLabel('注册');
-        $this->view->form = $form;
+        if ($this->_request->isPost()){
+            $formData = $this->_request->getPost();
+            if ($form->isValid($formData)){
+                $user = new User();
+                if($user->checkUnique($form->getValue('username'))){
+                    $msg = '用户名已存在';
+                    $this->view->title = '注册页面';
+                    $this->view->msg = $msg;
+                    $form->submit->setLabel('注册');
+                    $this->view->form = $form;
+                }else{
+                    $row = $user->createRow();
+                    $row->username = $form->getValue('username');
+                    $pwd = $form->getValue('password');
+                    $row->password = $this->_md5($pwd);
+                    if ($row->save()){
+                        $this->_redirect('/index/login');
+                    }
+                }
+            }else{
+                $msg = '用户名或密码输入不合法';
+                $this->view->title = '注册页面';
+                $this->view->msg = $msg;
+                $form->submit->setLabel('注册');
+                $this->view->form = $form;
+            }
+        }else{
+            $this->view->title = '注册页面';
+            $this->view->msg = '';
+            $form->submit->setLabel('注册');
+            $this->view->form = $form;
+        }
+
 
 
     }
@@ -139,6 +169,10 @@ class IndexController extends Zend_Controller_Action
 
         }
 
+    }
+    private function _md5($string)
+    {
+        return md5('imooc'.$string);
     }
 
 
