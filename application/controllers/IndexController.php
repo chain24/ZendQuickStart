@@ -15,6 +15,10 @@ class IndexController extends Zend_Controller_Action
         $albums = new Albums();
         $this->view->albums = $albums->fetchAll();
     }
+    public function register()
+    {
+        $this->view->title = '注册页面';
+    }
 
     public function addAction()
     {
