@@ -23,6 +23,7 @@ Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
 //设置控制器
 $frontController =Zend_Controller_Front::getInstance();
 $frontController->throwExceptions(true);
+$frontController->setBaseUrl('/login');
 $frontController->setControllerDirectory('../application/controllers');
 Zend_Layout::startMvc(array('layoutPath'=>'../application/layouts'));
 set_include_path('.'.PATH_SEPARATOR.'../library'.PATH_SEPARATOR.'../application/models'.PATH_SEPARATOR.get_include_path());
