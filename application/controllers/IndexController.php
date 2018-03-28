@@ -14,7 +14,7 @@ class IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
-        if($_SESSION['user']['username'] == 'guest'){
+        if(!isset($_SESSION['user']) || $_SESSION['user']['username'] == 'guest'){
             $this->_redirect('index/login');
         }else{
             $this->view->title = 'My Albums';
@@ -120,6 +120,9 @@ class IndexController extends Zend_Controller_Action
 
     public function addAction()
     {
+        if(!isset($_SESSION['user']) || $_SESSION['user']['username'] == 'guest'){
+            $this->_redirect('index/login');
+        }
         $this->view->title = 'Add New Album';
         $form = new AlbumForm();
         $form->submit->setLabel('Add');
@@ -142,7 +145,9 @@ class IndexController extends Zend_Controller_Action
     function editAction()
 
     {
-
+        if(!isset($_SESSION['user']) || $_SESSION['user']['username'] == 'guest'){
+            $this->_redirect('index/login');
+        }
         $this->view->title = "Edit Album";
         $form= new AlbumForm ();
 
@@ -198,38 +203,25 @@ class IndexController extends Zend_Controller_Action
     function deleteAction()
 
     {
-
+        if(!isset($_SESSION['user']) || $_SESSION['user']['username'] == 'guest'){
+            $this->_redirect('index/login');
+        }
         $this->view->title = "Delete Album";
         if ($this->_request->isPost ()) {
-
-            $id= ( int ) $this->_request->getPost ( 'id' );
-
+            $id= ( int ) $this->_request->getPost ('id');
             $del= $this->_request->getPost ( 'del' );
-
             if ($del == 'Yes' && $id > 0) {
-
                 $albums= new Albums ();
-
                 $where= 'id = ' . $id;
-
                 $albums->delete( $where );
-
             }
-
             $this->_redirect( '/' );
-
         }else {
-
-            $id= ( int ) $this->_request->getParam ( 'id' );
-
+            $id= ( int ) $this->_request->getParam ('id');
             if ($id > 0) {
-
                 $albums= new Albums ();
-
                 $this->view->album = $albums->fetchRow ( 'id=' . $id );
-
             }
-
         }
 
     }
@@ -237,7 +229,6 @@ class IndexController extends Zend_Controller_Action
     {
         return md5('imooc'.$string);
     }
-
 
 }
 
