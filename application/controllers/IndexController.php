@@ -6,14 +6,19 @@ class IndexController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
+
     }
 
     public function indexAction()
     {
         // action body
+
         $this->view->title = 'My Albums';
         $albums = new Albums();
         $this->view->albums = $albums->fetchAll();
+        $this->_redirect('/index/login');
+
+
     }
     public function registerAction()
     {
@@ -68,9 +73,18 @@ class IndexController extends Zend_Controller_Action
             }
             $pwd = $this->_md5($password);
             $user = new User();
-            if ($user->authCheck($username, $pwd)) {
+            $db = $user->getAdapter();
+            $authAdapter = new Zend_Auth_Adapter_DbTable($db);
+            $authAdapter->setTableName('user')
+                ->setIdentity($username)
+                ->setIdentityColumn('username')
+                ->setCredentialColumn('password')
+                ->setCredential($pwd);
+            $auth = Zend_Auth::getInstance();
+            $result = $auth->authenticate($authAdapter);
+            if ($result->isValid()) {
                 $this->_redirect('/index/index');
-            } else {
+            }else {
                 $msg = '用户名或密码输入有误';
                 $this->view->title = '登录页面';
                 $this->view->msg = $msg;
