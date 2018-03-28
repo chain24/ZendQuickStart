@@ -41,7 +41,8 @@
         </p>
     </div>
 </div>-->
-
+    <span style="background-color: #0bb20c">欢迎<?php echo $this->escape($this->username);?></span>
+    <span><a href="<?php echo $this->url(array('controller'=>'index','action'=>'login')); ?>">退出</a></span>
     <p><a href="<?php echo $this->url(array('controller'=>'index','action'=>'add')); ?>"> Add New Album</a> </p>
     <table border="1">
         <tr>
