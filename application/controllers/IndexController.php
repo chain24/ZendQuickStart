@@ -6,17 +6,23 @@ class IndexController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
+       $Name = new Zend_Session_Namespace('user');
+       isset($Name->username) ? $Name->username : 'guest';
 
     }
 
     public function indexAction()
     {
         // action body
+        if($_SESSION['user']['username'] == 'guest'){
+            $this->_redirect('index/login');
+        }else{
+            $this->view->title = 'My Albums';
+            $this->view->username = $_SESSION['user']['username'];
+            $albums = new Albums();
+            $this->view->albums = $albums->fetchAll();
+        }
 
-        $this->view->title = 'My Albums';
-        $albums = new Albums();
-        $this->view->albums = $albums->fetchAll();
-        $this->_redirect('/index/login');
 
 
     }
@@ -64,6 +70,9 @@ class IndexController extends Zend_Controller_Action
         $form = new UserForm();
         if ($this->_request->isPost()) {
             $data = $this->getRequest()->getPost();
+            if (!$form->isValid($data)){
+                exit('请输入用户名');
+            }
             if (is_array($data)){
                 $username = $data['username'];
                 $password = $data['password'];
@@ -83,6 +92,7 @@ class IndexController extends Zend_Controller_Action
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($authAdapter);
             if ($result->isValid()) {
+                $_SESSION['user']['username'] = $username;
                 $this->_redirect('/index/index');
             }else {
                 $msg = '用户名或密码输入有误';
@@ -99,6 +109,13 @@ class IndexController extends Zend_Controller_Action
             $this->view->form = $form;
         }
 
+    }
+    public function logoutAction()
+    {
+        $auth = Zend_Auth::getInstance();
+        $auth->clearIdentity();
+        unset($_SESSION['user']);
+        $this->_redirect('index/login');
     }
 
     public function addAction()
