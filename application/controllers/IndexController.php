@@ -54,6 +54,38 @@ class IndexController extends Zend_Controller_Action
 
 
     }
+    public function loginAction()
+    {
+        $form = new UserForm();
+        if ($this->_request->isPost()) {
+            $data = $this->getRequest()->getPost();
+            if (is_array($data)){
+                $username = $data['username'];
+                $password = $data['password'];
+            }else{
+                $username = '';
+                $password = '';
+            }
+            $pwd = $this->_md5($password);
+            $user = new User();
+            if ($user->authCheck($username, $pwd)) {
+                $this->_redirect('/index/index');
+            } else {
+                $msg = '用户名或密码输入有误';
+                $this->view->title = '登录页面';
+                $this->view->msg = $msg;
+                $form->submit->setLabel('登录');
+                $this->view->form = $form;
+            }
+
+        } else {
+            $this->view->title = '登录页面';
+            $this->view->msg = '';
+            $form->submit->setLabel('登录');
+            $this->view->form = $form;
+        }
+
+    }
 
     public function addAction()
     {
