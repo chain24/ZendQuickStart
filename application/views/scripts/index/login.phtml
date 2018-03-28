@@ -1,0 +1,7 @@
+<?php echo $this->form;?>
+<p><a href="<?php echo $this->url(array('controller'=>'index','action'=>'register')) ?>">没有账号，点击注册</a> </p>
+<p>
+    <?php if (!empty($this->msg)):?>
+        <span style="background-color: #CC0000"><?php echo $this->msg;?></span>
+    <?php endif;?>
+</p>
